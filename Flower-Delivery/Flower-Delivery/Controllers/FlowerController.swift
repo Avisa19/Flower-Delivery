@@ -13,7 +13,11 @@ class FlowerController: UICollectionViewController {
     fileprivate let CELL_ID = "CellID"
     
     init() {
-        let layout = UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
+        super.init(collectionViewLayout: FlowerController.createLayout())
+    }
+    
+    fileprivate static func createLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
             let item = NSCollectionLayoutItem.init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
             item.contentInsets.trailing = 2
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(200)), subitems: [item])
@@ -21,7 +25,6 @@ class FlowerController: UICollectionViewController {
             section.orthogonalScrollingBehavior = .paging
             return section
         }
-        super.init(collectionViewLayout: layout)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
