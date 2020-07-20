@@ -38,12 +38,20 @@ class FlowerController: UICollectionViewController {
                     .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50)), elementKind: CA_HEADER_ID, alignment: .topLeading)
                 ]
                 return section
-            } else {
+            } else if sectionNumber == 2 {
                 let item = NSCollectionLayoutItem.init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
                 item.contentInsets.trailing = 32
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(150)), subitems: [item])
                 let section = NSCollectionLayoutSection(group: group)
                 section.orthogonalScrollingBehavior = .continuous
+                return section
+            } else {
+                let item = NSCollectionLayoutItem.init(layoutSize: .init(widthDimension: .fractionalWidth(0.5), heightDimension: .absolute(300)))
+                item.contentInsets.trailing = 16
+                item.contentInsets.bottom = 16
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1000)), subitems: [item])
+                let section = NSCollectionLayoutSection(group: group)
+                section.contentInsets = .init(top: 32, leading: 16, bottom: 0, trailing: 0)
                 return section
             }
         }
@@ -53,8 +61,9 @@ class FlowerController: UICollectionViewController {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HEADER_ID, for: indexPath)
         return header
     }
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return 4
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -62,8 +71,10 @@ class FlowerController: UICollectionViewController {
             return 3
         } else if section == 1 {
             return 8
+        } else if section == 2 {
+            return 4
         }
-        return 4
+        return 7
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -75,6 +86,8 @@ class FlowerController: UICollectionViewController {
             cell.backgroundColor = .systemPink
         case 2:
             cell.backgroundColor = .systemGreen
+        case 3:
+            cell.backgroundColor = .systemYellow
         default:
             cell.backgroundColor = .white
         }
