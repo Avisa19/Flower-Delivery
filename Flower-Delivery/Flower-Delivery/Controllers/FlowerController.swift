@@ -27,7 +27,7 @@ class FlowerController: UICollectionViewController {
                 let section = NSCollectionLayoutSection(group: group)
                 section.orthogonalScrollingBehavior = .paging
                 return section
-            } else {
+            } else if sectionNumber == 1 {
                 let item = NSCollectionLayoutItem.init(layoutSize: .init(widthDimension: .fractionalWidth(0.25), heightDimension: .absolute(150)))
                 item.contentInsets.trailing = 16
                 item.contentInsets.bottom = 16
@@ -38,6 +38,13 @@ class FlowerController: UICollectionViewController {
                     .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50)), elementKind: CA_HEADER_ID, alignment: .topLeading)
                 ]
                 return section
+            } else {
+                let item = NSCollectionLayoutItem.init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
+                item.contentInsets.trailing = 32
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(150)), subitems: [item])
+                let section = NSCollectionLayoutSection(group: group)
+                section.orthogonalScrollingBehavior = .continuous
+                return section
             }
         }
     }
@@ -47,14 +54,16 @@ class FlowerController: UICollectionViewController {
         return header
     }
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return 3
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
             return 3
+        } else if section == 1 {
+            return 8
         }
-        return 8
+        return 4
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -64,6 +73,8 @@ class FlowerController: UICollectionViewController {
             cell.backgroundColor = .systemBlue
         case 1:
             cell.backgroundColor = .systemPink
+        case 2:
+            cell.backgroundColor = .systemGreen
         default:
             cell.backgroundColor = .white
         }
