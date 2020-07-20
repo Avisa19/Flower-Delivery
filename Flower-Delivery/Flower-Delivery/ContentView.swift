@@ -8,14 +8,22 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    var body: some View {
-        Text("Hello, World!")
+
+struct Container: UIViewControllerRepresentable {
+    
+    typealias UIViewControllerType = UIViewController
+    
+    func makeUIViewController(context: Context) -> UIViewController {
+        UINavigationController(rootViewController: FlowerController())
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+        
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Container().edgesIgnoringSafeArea(.all)
     }
 }
